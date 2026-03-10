@@ -1,0 +1,6 @@
+@inproceedings{aydemir2026trackonr,
+  title     = {Real-World Point Tracking with Verifier-Guided Pseudo-Labeling},
+  author    = {Aydemir, G\"orkay and G\"uney, Fatma and Xie, Weidi},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year      = {2026}
+}

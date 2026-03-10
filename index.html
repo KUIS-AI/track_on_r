@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+
+<title>Real-World Point Tracking with Verifier-Guided Pseudo-Labeling</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="./resources/style.css" media="screen"/>
+
+
+<meta property="og:image" content="./resources/social_preview.png"/>
+<meta property="og:title" content="Real-World Point Tracking with Verifier-Guided Pseudo-Labeling"/>
+<meta property="og:description" content="Adapting point trackers to real-world videos using verifier-guided pseudo-labeling."/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+</head>
+
+
+
+<script>
+function toggleBib(id) {
+  var x = document.getElementById(id);
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+</script>
+
+<body>
+
+
+<div class="container">
+
+
+
+<!-- HERO -->
+
+<div class="title">
+
+<b>Real-World Point Tracking with</b><br>
+<b>Verifier-Guided Pseudo-Labeling</b>
+
+</div>
+<br>
+
+
+
+<div class="author"><a href="https://gorkaydemir.github.io" target="_blank">Görkay Aydemir</a><sup>1</sup></div>
+<div class="author"><a href="https://mysite.ku.edu.tr/fguney/" target="_blank">Fatma Güney</a><sup>1</sup></div>
+<div class="author"> <a href="https://weidixie.github.io" target="_blank">Weidi Xie</a><sup>2</sup></div>
+<br>
+
+<div class="affiliation">
+    <sup>1</sup>Koç University &nbsp;&nbsp;&nbsp;
+    <sup>2</sup>Shanghai Jiao Tong University
+</div>
+<br>
+
+<div class="hero-links">
+  <div class="links">Paper <a href="TODO">[arXiv]</a></div>
+  <div class="links">Code <a href="https://github.com/gorkaydemir/track_on">[GitHub]</a></div>
+  <div class="links">BibTeX <a href="./resources/bibtex.txt">[BibTeX]</a></div>
+</div>
+
+
+<br><br>
+
+
+
+<!-- TEASER VIDEO -->
+
+<div class="video-container">
+
+<video autoplay muted loop playsinline controls preload="metadata">
+
+<source src="./resources/predictions.mp4" type="video/mp4"/>
+
+</video>
+
+</div>
+
+</p>
+
+
+<!-- TLDR -->
+
+<div class="box">
+
+<b><font color="red">TL;DR </font></b>
+
+We introduce <b>Track-On-R</b>, a point tracker adapted to real-world videos using
+<b>verifier-guided pseudo-labeling</b>.  
+The verifier identifies reliable predictions from multiple trackers and enables
+large-scale training on unlabeled real videos, significantly improving tracking
+robustness across diverse real-world benchmarks.
+
+</div>
+
+
+
+<br><br>
+<hr>
+<br><br>
+
+
+
+<!-- DOMAIN GAP -->
+
+<h1>Domain Gap in Point Tracking</h1>
+
+<img style="width:85%;" src="./resources/tracker_fails.gif"
+     alt="Tracker disagreement and oracle gap"/>
+
+<p style="width:75%; text-align:center; font-size:15px; color:#555;">
+Different trackers fail under different conditions and frames,
+highlighting the limitations of single-teacher pseudo-labeling.
+</p>
+
+<div class="domain-cards">
+
+  <div class="domain-card">
+    <h3>Synthetic Training</h3>
+    <p>
+      Most point trackers are trained on synthetic videos with labels,
+      which do not fully capture real-world appearance and motion complexity.
+    </p>
+  </div>
+
+  <div class="domain-card">
+    <h3>Single-Teacher Limitation</h3>
+    <p>
+      Pseudo-labeling with one teacher propagates its errors directly,
+      making real-world adaptation brittle.
+    </p>
+  </div>
+
+  <div class="domain-card">
+    <h3>Verifier Motivation</h3>
+    <p>
+      Since different trackers succeed under different conditions,
+      we learn a verifier to identify the most reliable prediction.
+    </p>
+  </div>
+
+</div>
+
+
+<br><br>
+<hr>
+<br><br>
+
+
+
+
+<!-- VERIFIER -->
+
+
+<!-- VERIFIER -->
+
+<h1>Verifier-Guided Real-World Adaptation</h1>
+
+<div style="width:85%; margin:auto;">
+
+<img style="width:100%;" src="./resources/verifier_pipeline.png"
+     alt="Verifier-guided pseudo-labeling pipeline">
+
+<p style="text-align:center; font-size:15px; color:#555;">
+<b>Left:</b> Candidate trajectories produced by multiple off-the-shelf trackers.
+<b>Right:</b> A verifier selects the most reliable prediction to generate pseudo-labels
+for adapting a tracker to real-world videos.
+</p>
+
+</div>
+
+<br>
+
+<ul style="width:75%; margin:auto; text-align:left; line-height:1.7;">
+
+<li>
+<b>Candidate trajectories.</b>
+Multiple off-the-shelf trackers produce alternative predictions
+for the same query point.
+</li>
+
+<li>
+<b>Verifier scoring.</b>
+A lightweight verifier evaluates the reliability of each candidate
+trajectory using local visual evidence and temporal consistency.
+</li>
+
+<li>
+<b>Verifier-guided pseudo-labeling.</b>
+The most reliable trajectory is selected and used as pseudo-labels
+for real-world adaptation.
+</li>
+
+<li>
+<b>Track-On-R.</b>
+Using these pseudo-labels, we fine-tune the base tracker on
+unlabeled real-world videos, resulting in <b>Track-On-R</b>,
+a model adapted to real-world motion and appearance variations.
+</li>
+
+</ul>
+
+<br><br>
+
+<!-- RESULTS -->
+
+<h1>Results</h1>
+
+
+
+<h2>Benchmark Comparison</h2>
+
+<table class="results-table">
+
+<colgroup>
+  <col style="width:26%">
+  <col style="width:10%">
+  <col style="width:10%">
+  <col style="width:10%">
+  <col style="width:10%">
+  <col style="width:10%">
+  <col style="width:10%">
+  <col style="width:10%">
+  <col style="width:10%">
+</colgroup>
+
+<thead>
+
+<tr>
+  <th rowspan="2">Model</th>
+  <th colspan="2" class="ep">EgoPoints</th>
+  <th colspan="2" class="rt">RoboTAP</th>
+  <th colspan="2" class="kt">Kinetics</th>
+  <th colspan="2" class="dv">DAVIS</th>
+</tr>
+
+<tr>
+  <th class="ep">&delta;<sub>avg</sub></th><th class="ep">OA</th>
+  <th class="rt">&delta;<sub>avg</sub></th><th class="rt">OA</th>
+  <th class="kt">&delta;<sub>avg</sub></th><th class="kt">OA</th>
+  <th class="dv">&delta;<sub>avg</sub></th><th class="dv">OA</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>BootsTAPNext</td>
+<td>33.6</td><td>89.5</td>
+<td>75.0</td><td>88.7</td>
+<td><u>70.6</u></td><td>87.4</td>
+<td><u>78.5</u></td><td><u>91.2</u></td>
+</tr>
+
+<tr>
+<td>CoTracker3</td>
+<td>54.0</td><td>84.4</td>
+<td>78.8</td><td>90.8</td>
+<td>68.5</td><td>88.3</td>
+<td>76.3</td><td>90.2</td>
+</tr>
+
+<tr>
+<td>AllTracker</td>
+<td><u>62.0</u></td><td><u>87.1</u></td>
+<td><u>80.9</u></td><td><u>92.2</u></td>
+<td>69.3</td><td><u>89.1</u></td>
+<td>77.0</td><td>88.7</td>
+</tr>
+
+<tr>
+<td><b>Track-On-R (Ours)</b></td>
+<td><b>67.3</b></td><td><b>90.2</b></td>
+<td><b>82.6</b></td><td><b>94.0</b></td>
+<td><b>71.0</b></td><td><b>90.5</b></td>
+<td><b>80.3</b></td><td><b>92.5</b></td>
+</tr>
+
+</tbody>
+
+</table>
+
+<br><br>
+<hr>
+<br><br>
+
+
+<!-- QUALITATIVE RESULTS -->
+
+<h1>Qualitative Results</h1>
+
+
+<div class="container is-max-desktop">
+
+<div class="video-grid">
+
+
+
+<figure class="video-card">
+
+<video autoplay muted loop playsinline controls>
+
+<source src="./resources/davis.mp4" type="video/mp4">
+
+</video>
+
+<figcaption>DAVIS</figcaption>
+
+</figure>
+
+
+
+<figure class="video-card">
+
+<video autoplay muted loop playsinline controls>
+
+<source src="./resources/kinetics.mp4" type="video/mp4">
+
+</video>
+
+<figcaption>Kinetics</figcaption>
+
+</figure>
+
+
+
+<figure class="video-card">
+
+<video autoplay muted loop playsinline controls>
+
+<source src="./resources/robotap.mp4" type="video/mp4">
+
+</video>
+
+<figcaption>RoboTAP</figcaption>
+
+</figure>
+
+</div>
+
+<br><br>
+<hr>
+<br><br>
+
+<h1>Credits / Acknowledgments</h1>
+
+<div style="width:80%; margin:auto; text-align:left; line-height:1.7;">
+
+<p>
+<b>Datasets.</b>
+Qualitative examples shown on this page are drawn from publicly available tracking datasets,
+including <a href="https://vision.cs.stonybrook.edu/~lasot/" target="_blank"><b>LaSOT</b></a>
+and <a href="https://hengfan2010.github.io/projects/AnimalTrack/" target="_blank"><b>AnimalTrack</b></a>.
+We thank the authors of these datasets for collecting and releasing them.
+</p>
+
+<p>
+<b>Compared Trackers.</b>
+We also acknowledge the authors of the tracking methods used in our comparisons,
+including <a href="https://bootstap.github.io/" target="_blank"><b>BootsTAPNext</b></a>,
+<a href="https://alltracker.github.io/" target="_blank"><b>AllTracker</b></a>,
+and <a href="https://cotracker3.github.io/" target="_blank"><b>CoTracker3</b></a>,
+for making their models publicly available.
+</p>
+
+<br><br>
+<hr>
+<br><br>
+
+
+<h1>Previous Work</h1>
+
+<p style="width:80%; margin:auto; text-align:center; color:#555;">
+This work builds on our previous research on online point tracking.
+</p>
+
+<br>
+<!-- Track-On2 -->
+
+<div class="paper-entry">
+
+<div class="paper-thumb">
+<img src="./resources/trackon2_thumb.png">
+</div>
+
+<div class="paper-info">
+
+<b>Track-On2: Enhancing Online Point Tracking with Memory</b><br>
+Görkay Aydemir, Weidi Xie, Fatma Güney<br>
+under submission, 2025
+
+<br><br>
+
+<a href="javascript:void(0)" onclick="toggleBib('bib_trackon2')">BibTeX</a> |
+<a href="https://arxiv.org/abs/2509.19115">arXiv</a> |
+<a href="https://kuis-ai.github.io/track_on2/">Project Page</a>
+
+<pre id="bib_trackon2" class="bibtex">
+@article{aydemir2025trackon2,
+  title   = {Track-On2: Enhancing Online Point Tracking with Memory},
+  author  = {Aydemir, G\"orkay and Xie, Weidi and G\"uney, Fatma},
+  journal = {arXiv preprint arXiv:2509.19115},
+  year    = {2025}}
+</pre>
+
+</div>
+</div>
+
+
+<!-- Track-On -->
+
+<div class="paper-entry">
+
+<div class="paper-thumb">
+<img src="./resources/trackon_thumb.png">
+</div>
+
+<div class="paper-info">
+
+<b>Track-On: Transformer-based Online Point Tracking with Memory</b><br>
+Görkay Aydemir, Xiongyi Cai, Weidi Xie, Fatma Güney<br>
+ICLR, 2025
+
+<br><br>
+
+<a href="javascript:void(0)" onclick="toggleBib('bib_trackon')">BibTeX</a> |
+<a href="https://arxiv.org/abs/2501.18487">arXiv</a> |
+<a href="https://kuis-ai.github.io/track_on/">Project Page</a>
+
+<pre id="bib_trackon" class="bibtex">
+@inproceedings{aydemir2025trackon,
+  title     = {Track-On: Transformer-based Online Point Tracking with Memory},
+  author    = {Aydemir, G\"orkay and Cai, Xiongyi and Xie, Weidi and G\"uney, Fatma},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2025}
+}
+</pre>
+
+</div>
+</div>
+
+
+
+<!-- FOOTER -->
+
+<p style="text-align:center; font-size:14px;">
+
+Project page for  
+<b>Real-World Point Tracking with Verifier-Guided Pseudo-Labeling</b>
+
+</p>
+
+
+
+</div>
+
+
+</body>
+
+</html>
