@@ -8,7 +8,7 @@
 
 <title>Real-World Point Tracking with Verifier-Guided Pseudo-Labeling</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="./resources/style.css" media="screen"/>
 
@@ -38,14 +38,15 @@ function toggleBib(id) {
 
 <body>
 
-
-<div class="container">
+<!-- HERO HEADER -->
+<div class="hero-header">
+<div class="container" style="padding-bottom:0;">
 
 
 
 <!-- HERO -->
 
-<div class="title">
+<div class="title" style="margin-top:0;">
 
 <b>Real-World Point Tracking with</b><br>
 <b>Verifier-Guided Pseudo-Labeling</b>
@@ -72,15 +73,17 @@ function toggleBib(id) {
 <br>
 
 <div class="hero-links">
-  <div class="links">Paper <a href="TODO">[arXiv]</a></div>
-  <div class="links">Code <a href="https://github.com/gorkaydemir/track_on">[GitHub]</a></div>
-  <div class="links">Cite <a href="./resources/bibtex.txt">[BibTeX]</a></div>
+  <div class="links">&#128196; Paper &nbsp;<a href="TODO">[arXiv]</a></div>
+  <div class="links">&#128187; Code &nbsp;<a href="https://github.com/gorkaydemir/track_on">[GitHub]</a></div>
+  <div class="links">&#128203; Cite &nbsp;<a href="./resources/bibtex.txt">[BibTeX]</a></div>
 </div>
 
 
-<br> <br>
 
+</div><!-- /.container -->
+</div><!-- /.hero-header -->
 
+<div class="container">
 
 <!-- TEASER VIDEO -->
 
@@ -94,14 +97,15 @@ function toggleBib(id) {
 
 </div>
 
-</p>
+<br>
+
 
 
 <!-- TLDR -->
 
 <div class="box">
 
-<b><font color="red">TL;DR </font></b>
+<b><span style="color:#f97316;">TL;DR </span></b>
 
 We introduce <b>Track-On-R</b>, a point tracker adapted to real-world videos using
 <b>verifier-guided pseudo-labeling</b>.  
@@ -117,16 +121,13 @@ robustness across diverse real-world benchmarks.
 <hr>
 <br><br>
 
-
-
 <!-- DOMAIN GAP -->
-
-<h1>Domain Gap in Point Tracking</h1>
+<div class="section-title-wrap"><h1>Domain Gap in Point Tracking</h1></div>
 
 <img style="width:85%;" src="./resources/tracker_fails.gif"
      alt="Tracker disagreement and oracle gap"/>
 
-<p style="width:75%; text-align:center; font-size:15px; color:#555;">
+<p style="width:75%; text-align:center; font-size:15px; color:#6b7280;">
 Different trackers fail under different conditions and frames,
 highlighting the limitations of single-teacher pseudo-labeling.
 </p>
@@ -164,22 +165,15 @@ highlighting the limitations of single-teacher pseudo-labeling.
 <hr>
 <br><br>
 
-
-
-
 <!-- VERIFIER -->
-
-
-<!-- VERIFIER -->
-
-<h1>Verifier-Guided Real-World Adaptation</h1>
+<div class="section-title-wrap"><h1>Verifier-Guided Real-World Adaptation</h1></div>
 
 <div style="width:85%; margin:auto;">
 
 <img style="width:100%;" src="./resources/verifier_pipeline.png"
      alt="Verifier-guided pseudo-labeling pipeline">
 
-<p style="text-align:center; font-size:15px; color:#555;">
+<p style="text-align:center; font-size:15px; color:#6b7280;">
 <b>Left:</b> Candidate trajectories produced by multiple off-the-shelf trackers.
 <b>Right:</b> A verifier selects the most reliable prediction to generate pseudo-labels
 for adapting a tracker to real-world videos.
@@ -221,8 +215,7 @@ a model adapted to real-world motion and appearance variations.
 <br><br>
 
 <!-- RESULTS -->
-
-<h1>Results</h1>
+<div class="section-title-wrap"><h1>Results</h1></div>
 
 
 
@@ -253,10 +246,10 @@ a model adapted to real-world motion and appearance variations.
 </tr>
 
 <tr>
-  <th class="ep">&delta;<sub>avg</sub></th><th class="ep">OA</th>
-  <th class="rt">&delta;<sub>avg</sub></th><th class="rt">OA</th>
-  <th class="kt">&delta;<sub>avg</sub></th><th class="kt">OA</th>
-  <th class="dv">&delta;<sub>avg</sub></th><th class="dv">OA</th>
+  <th class="ep"><span style="text-transform:none">δ</span><sub>avg</sub></th><th class="ep">OA</th>
+  <th class="rt"><span style="text-transform:none">δ</span><sub>avg</sub></th><th class="rt">OA</th>
+  <th class="kt"><span style="text-transform:none">δ</span><sub>avg</sub></th><th class="kt">OA</th>
+  <th class="dv"><span style="text-transform:none">δ</span><sub>avg</sub></th><th class="dv">OA</th>
 </tr>
 </thead>
 
@@ -302,13 +295,9 @@ a model adapted to real-world motion and appearance variations.
 <hr>
 <br><br>
 
-
 <!-- QUALITATIVE RESULTS -->
+<div class="section-title-wrap"><h1>Qualitative Results</h1></div>
 
-<h1>Qualitative Results</h1>
-
-
-<div class="container is-max-desktop">
 
 <div class="video-grid">
 
@@ -360,9 +349,9 @@ a model adapted to real-world motion and appearance variations.
 <hr>
 <br><br>
 
-<h1>Credits / Acknowledgments</h1>
+<div class="section-title-wrap"><h1>Credits / Acknowledgments</h1></div>
 
-<div style="width:80%; margin:auto; text-align:left; line-height:1.7;">
+<div style="width:80%; margin:auto; text-align:left; line-height:1.7; color:#374151;">
 
 <p>
 <b>Datasets.</b>
@@ -381,14 +370,15 @@ and <a href="https://cotracker3.github.io/" target="_blank"><b>CoTracker3</b></a
 for making their models publicly available.
 </p>
 
+</div><!-- /.credits-inner -->
+
 <br><br>
 <hr>
 <br><br>
 
+<div class="section-title-wrap"><h1>Previous Work</h1></div>
 
-<h1>Previous Work</h1>
-
-<p style="width:80%; margin:auto; text-align:center; color:#555;">
+<p style="width:80%; margin:auto; text-align:center; color:#6b7280;">
 This work builds on our previous research on online point tracking.
 </p>
 
@@ -460,18 +450,11 @@ ICLR, 2025
 
 
 <!-- FOOTER -->
-
-<p style="text-align:center; font-size:14px;">
-
-Project page for  
-<b>Real-World Point Tracking with Verifier-Guided Pseudo-Labeling</b>
-
-</p>
-
-
-
+<div class="footer">
+  Project page for <b>Real-World Point Tracking with Verifier-Guided Pseudo-Labeling</b>
 </div>
 
+</div><!-- /.container -->
 
 </body>
 
